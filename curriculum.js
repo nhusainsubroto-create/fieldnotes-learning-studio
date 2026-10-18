@@ -1,0 +1,340 @@
+window.fieldnotesCourseModules = [
+  {
+    id: "foundations",
+    title: "01 · Python foundations",
+    subtitle: "Zero to first useful scripts",
+    description: "Learn to think in steps, write small programs, and understand the tools you use.",
+    lessonIds: ["python-setup", "python-start", "python-data", "python-types", "python-decisions", "python-repeat", "python-functions", "python-errors"]
+  },
+  {
+    id: "excel",
+    title: "02 · Excel data work",
+    subtitle: "From workbook to trustworthy table",
+    description: "Read, inspect, clean, combine, validate, and export spreadsheet data safely.",
+    lessonIds: ["excel-files", "excel-inspect", "excel-clean", "excel-summarize", "excel-dates", "excel-joins", "excel-validation", "excel-export"]
+  },
+  {
+    id: "dashboards",
+    title: "03 · Dashboards and communication",
+    subtitle: "From analysis to decisions",
+    description: "Design clear metrics and build an interactive reporting app with honest context.",
+    lessonIds: ["dashboard-story", "dashboard-design", "dashboard-streamlit", "dashboard-filters", "dashboard-review"]
+  },
+  {
+    id: "gis",
+    title: "04 · GIS and spatial analysis",
+    subtitle: "From coordinates to geographic insight",
+    description: "Work carefully with geometry, coordinate systems, spatial relationships, and maps.",
+    lessonIds: ["gis-locations", "gis-map", "gis-crs", "gis-joins", "gis-distance", "gis-choropleth", "gis-privacy"]
+  },
+  {
+    id: "professional",
+    title: "05 · Professional practice",
+    subtitle: "Make work other people can trust",
+    description: "Organize, test, version, document, and prepare a project for another person to run.",
+    lessonIds: ["pro-structure", "pro-tests", "pro-git", "pro-logging", "pro-release"]
+  }
+];
+
+window.fieldnotesAdvancedLessons = [
+  {
+    id: "python-setup", topic: "Foundations", moduleId: "foundations", title: "Set up your Python workshop", duration: "20 MIN",
+    description: "Create a project folder, run Python, and learn where code and commands belong.",
+    lead: "A reliable setup removes much of the mystery from programming. You will write a file, run it, and read the result before adding libraries.",
+    explanation: "Use VS Code for editing and its integrated terminal for commands. A project folder keeps your code and sample data together. Python files end in .py. The terminal runs commands such as `py hello.py` on Windows. If you see an error, read the final lines first; they usually name the problem and file location.",
+    code: "# hello.py\nprint(\"My first repeatable work tool\")\n\n# In the VS Code terminal, run:\n# Windows: py hello.py\n# macOS/Linux: python3 hello.py",
+    codeNote: "Python must be installed separately. Follow the workspace README setup steps and confirm `py --version` (Windows) or `python3 --version` first.",
+    practice: "Create hello.py in a new practice folder, run it from the terminal, then change the message and run it again.",
+    question: "Where should you type `py hello.py`?",
+    options: ["In the terminal, from the folder containing the file", "Inside the Python file as a comment", "In an Excel cell"],
+    answer: 0
+  },
+  {
+    id: "python-types", topic: "Foundations", moduleId: "foundations", title: "Choose the right data type", duration: "14 MIN",
+    description: "Recognize text, numbers, missing values, and why types matter for totals.",
+    lead: "A value's type changes what Python can safely do with it. Spreadsheet cells that look like numbers may actually be stored as text.",
+    explanation: "Strings hold text, integers hold whole numbers, floats hold decimal numbers, and booleans represent True or False. Convert deliberately and inspect before calculating: the value 120 wrapped in quotes is text, while 120 without quotes is a number. Missing values need an explicit policy; guessing zero can distort a report.",
+    code: "raw_amount = \"120.50\"\namount = float(raw_amount)\n\nis_large = amount >= 100\nprint(amount, type(amount))\nprint(\"Large amount?\", is_large)",
+    codeNote: "float() converts a numeric string to a decimal number. Invalid text raises an error; real data needs validation before conversion.",
+    practice: "Make a list of three amount values stored as text. Convert each one to a number and identify how you would handle a blank or invalid entry.",
+    question: "Why is `float(\"120.50\")` useful before adding a text value?",
+    options: ["It converts valid numeric text to a number", "It rounds every value to zero", "It changes the value into a map point"],
+    answer: 0
+  },
+  {
+    id: "python-decisions", topic: "Foundations", moduleId: "foundations", title: "Make decisions with conditions", duration: "14 MIN",
+    description: "Express a simple business rule with if, elif, and else.",
+    lead: "Automation is more than repeating steps: it can choose the right step when records differ.",
+    explanation: "A condition evaluates to True or False. `if` handles one case, `elif` checks another, and `else` makes the fallback explicit. Write down the rule in plain language first and consider boundary values before trusting it with real records.",
+    code: "amount = 125\n\nif amount >= 100:\n    review = \"large\"\nelse:\n    review = \"standard\"\n\nprint(review)",
+    codeNote: "The comparison >= includes exactly 100. Indentation marks which assignment belongs to each branch.",
+    practice: "Add a third status for zero or negative amounts. Test values below, at, and above each boundary.",
+    question: "What does the else branch represent?",
+    options: ["The fallback when earlier conditions are false", "A loop over every spreadsheet row", "A comment ignored by Python"],
+    answer: 0
+  },
+  {
+    id: "python-functions", topic: "Foundations", moduleId: "foundations", title: "Turn a repeated task into a function", duration: "18 MIN",
+    description: "Give reusable logic a clear name, inputs, and a return value.",
+    lead: "Functions help you name a task once and reuse it without copying and editing the same block throughout a script.",
+    explanation: "A function takes inputs (parameters), performs a focused task, and can return a result. Keep functions small and give them names that explain intent. Returning a value makes the result available to later steps and easier to test.",
+    code: "def clean_team_name(value):\n    return value.strip().title()\n\nraw = \"  north region \"\nteam = clean_team_name(raw)\nprint(team)",
+    codeNote: "strip() removes surrounding whitespace; title() capitalizes words. In real reporting rules, confirm desired naming with the data owner.",
+    practice: "Write a function that accepts an amount and returns whether it is missing, invalid, or ready for analysis.",
+    question: "Why return a result from a function?",
+    options: ["So another part of the program can use and test it", "So Python automatically opens an Excel file", "So the function runs only once in a project"],
+    answer: 0
+  },
+  {
+    id: "python-errors", topic: "Foundations", moduleId: "foundations", title: "Read errors and handle bad input", duration: "18 MIN",
+    description: "Distinguish expected data problems from bugs, and report failures clearly.",
+    lead: "Reliable automation does not hide problems. It explains what failed and gives you enough context to correct the input or the code.",
+    explanation: "An exception is Python's signal that an operation could not continue. Catch only errors you can handle; a blanket catch can turn a broken report into a false success. Validate input early and include a row number or field name in your message.",
+    code: "raw = \"not a number\"\n\ntry:\n    amount = float(raw)\nexcept ValueError as error:\n    print(f\"Amount is invalid: {raw!r}\")\n    raise",
+    codeNote: "This example re-raises the error so the run still fails visibly. A user-facing app can instead collect row-level issues and show them clearly.",
+    practice: "Try converting a valid amount, a blank, and text. Decide which errors should stop a batch and which should be listed for review.",
+    question: "What is a risk of catching every possible error and doing nothing?",
+    options: ["The program may appear successful while producing incomplete or wrong output", "Python becomes unable to read lists", "The workbook gains too many sheets"],
+    answer: 0
+  },
+  {
+    id: "excel-inspect", topic: "Excel", moduleId: "excel", title: "Inspect a workbook before changing it", duration: "18 MIN",
+    description: "Check sheet names, columns, types, row counts, and sample records.",
+    lead: "Never start by transforming a workbook you do not understand. A quick inspection prevents assumptions from turning into silent data loss.",
+    explanation: "Work from a copy or read-only source. Record the sheet name, expected columns, row count, and key fields. Compare actual headers to an expected schema and stop with a helpful message if a required field is missing.",
+    code: "import pandas as pd\n\n# Create a tiny fictional workbook so this example runs on its own.\nsample = pd.DataFrame({\"Team\": [\"North\", \"South\"], \"Amount\": [120, 80]})\nsample.to_excel(\"synthetic_weekly_report.xlsx\", index=False)\n\nbook = pd.ExcelFile(\"synthetic_weekly_report.xlsx\")\nprint(book.sheet_names)\nreport = pd.read_excel(book, sheet_name=book.sheet_names[0])\nprint(report.columns.tolist())\nprint(report.dtypes)\nprint(report.head(3))",
+    codeNote: "Install pandas and openpyxl as in the README, and run in a practice folder. The code creates a synthetic workbook, then inspects it; real workbooks may contain several sheets, merged cells, totals rows, or inconsistent headers.",
+    practice: "Inspect a sample workbook and write a short data dictionary: one sentence for each important column and its expected type.",
+    question: "Why inspect columns and sheet names before running a report?",
+    options: ["To confirm the input matches the assumptions your code relies on", "To make Excel calculate more quickly", "To automatically repair every bad row"],
+    answer: 0
+  },
+  {
+    id: "excel-summarize", topic: "Excel", moduleId: "excel", title: "Clean and summarize rows", duration: "20 MIN",
+    description: "Define missing-value rules and make grouped summaries you can check.",
+    lead: "Cleaning is a set of explicit decisions, not a magic command. Preserve the raw input and make every exclusion explainable.",
+    explanation: "Count missing values before removing anything. Decide whether a missing amount means invalid, unknown, or truly zero with the data owner. Use groupby to summarize approved rows, and compare a small hand-calculated sample with the result.",
+    code: "import pandas as pd\n\nreport = pd.DataFrame({\n    \"Team\": [\"North\", \"South\", \"North\"],\n    \"Amount\": [120.0, 80.0, None],\n})\nmissing = report[\"Amount\"].isna().sum()\nprint(\"Missing amounts:\", missing)\n\nclean = report.dropna(subset=[\"Amount\"]).copy()\nby_team = clean.groupby(\"Team\", dropna=False)[\"Amount\"].sum()\nprint(by_team.sort_values(ascending=False))",
+    codeNote: "Install pandas with `py -m pip install pandas` on Windows or `python3 -m pip install pandas` on macOS/Linux. The table is fictional. dropna() is only appropriate when those rows should be excluded from this analysis; keep a count so the report can disclose what was left out.",
+    practice: "Add a row count per team beside the total. Compare the total of all groups to the total of the cleaned table.",
+    question: "What should you do before deciding to drop missing records?",
+    options: ["Understand what missing means and record how many rows are affected", "Replace all missing values with zero automatically", "Delete the source workbook"],
+    answer: 0
+  },
+  {
+    id: "excel-dates", topic: "Excel", moduleId: "excel", title: "Normalize dates and text fields", duration: "20 MIN",
+    description: "Parse dates safely and standardize text without losing the source values.",
+    lead: "Dates typed in different formats can break time-based summaries. Clean with a documented rule and inspect values that fail parsing.",
+    explanation: "Use pandas string operations to remove stray whitespace, and parse dates with explicit error handling. Keep the original value when it matters for auditability. Check ambiguous day/month formats with the source owner; a parser cannot infer local meaning reliably.",
+    code: "import pandas as pd\n\nreport = pd.DataFrame({\n    \"Team\": [\" North \", \"South\", \"North\"],\n    \"VisitDate\": [\"12/03/2025\", \"2025-03-14\", \"not-a-date\"],\n})\nreport[\"Team_clean\"] = report[\"Team\"].astype(\"string\").str.strip()\nreport[\"VisitDate_parsed\"] = pd.to_datetime(\n    report[\"VisitDate\"], errors=\"coerce\", dayfirst=True\n)\ninvalid_dates = report[\"VisitDate_parsed\"].isna()\nprint(report[[\"Team_clean\", \"VisitDate_parsed\"]])\nprint(\"Dates needing review:\", int(invalid_dates.sum()))",
+    codeNote: "The example uses fictional values. Install pandas as in the README. Set dayfirst only after confirming the source convention; `errors=\"coerce\"` marks failed values as missing so you can count and review them.",
+    practice: "Create a column for month, inspect invalid dates, and document your rule for ambiguous dates before aggregating.",
+    question: "What does errors=\"coerce\" do when a value cannot be parsed as a date?",
+    options: ["Marks it missing so it can be identified and reviewed", "Guesses a date silently", "Deletes the original Excel file"],
+    answer: 0
+  },
+  {
+    id: "excel-joins", topic: "Excel", moduleId: "excel", title: "Combine files and tables deliberately", duration: "22 MIN",
+    description: "Optional stretch: append synthetic tables and join reference data with checked keys.",
+    lead: "Combining tables is powerful and easy to get wrong. Decide whether rows should be appended or columns matched before choosing an operation.",
+    explanation: "Concatenate files with the same schema to append rows. Merge when a key such as service_id links two tables. Check key uniqueness, use validate to constrain the relationship, and compare row counts before and after. An unexpected increase often signals duplicate keys.",
+    code: "import pandas as pd\n\n# Fictional rows: concatenate same-schema visit tables, then join a lookup.\nvisit_files = [\n    pd.DataFrame({\"service_id\": [\"S1\", \"S2\"], \"visits\": [3, 2]}),\n    pd.DataFrame({\"service_id\": [\"S1\"], \"visits\": [1]}),\n]\nservices = pd.DataFrame({\n    \"service_id\": [\"S1\", \"S2\"],\n    \"service_name\": [\"Mobile clinic\", \"Food support\"],\n})\nall_visits = pd.concat(visit_files, ignore_index=True)\ncombined = all_visits.merge(\n    services, on=\"service_id\", how=\"left\", validate=\"many_to_one\"\n)\nprint(\"Input rows:\", len(all_visits), \"Joined rows:\", len(combined))\nprint(combined)",
+    codeNote: "Install pandas as in the README. Both tables contain synthetic values. A left join preserves visits that have no reference match; inspect unmatched keys rather than silently discarding them. For real files, first check they share the intended schema.",
+    practice: "Append two same-schema sample files, then join a small service lookup table. Verify row counts and unmatched keys.",
+    question: "Which operation appends rows from same-schema files?",
+    options: ["pd.concat()", "merge() only", "to_excel()"],
+    answer: 0
+  },
+  {
+    id: "excel-validation", topic: "Excel", moduleId: "excel", title: "Build data-quality checks", duration: "22 MIN",
+    description: "Validate required fields, ranges, duplicates, and business rules before analysis.",
+    lead: "A dependable report tells you when its inputs are not trustworthy. Validation converts assumptions into checks that run every time.",
+    explanation: "Check the schema before reading any required column. A missing required column is a fatal schema issue: stop with a clear error before later checks index that column. Row-level anomalies can instead be collected for review. Show the field, row, observed value, and expected rule.",
+    code: "import pandas as pd\n\n# Fictional sample with a valid schema; remove service_id to see the fatal path.\nreport = pd.DataFrame({\n    \"service_id\": [\"S1\", \"S1\", \"S2\"],\n    \"VisitDate\": [\"2025-03-01\", \"2025-03-02\", \"2025-03-03\"],\n    \"Amount\": [120.0, 80.0, 45.0],\n})\nissues = []\nrequired = [\"service_id\", \"VisitDate\", \"Amount\"]\nmissing_columns = [column for column in required if column not in report.columns]\nif missing_columns:\n    issues.extend({\"field\": column, \"problem\": \"missing required column\"}\n                  for column in missing_columns)\n    raise ValueError(f\"Required columns missing; cannot validate rows: {issues}\")\n\nduplicates = report[\"service_id\"].duplicated(keep=False)\nprint(\"Duplicate IDs to review:\", int(duplicates.sum()))\nprint(\"Schema issues:\", issues)",
+    codeNote: "Install pandas as in the README. The sample values are fictional. Missing columns now stop execution with ValueError before any column is indexed; remove `service_id` to see that failure. Repeated service IDs are only flagged for review because whether they are valid depends on the data model.",
+    practice: "Create checks for required columns, missing IDs, negative amounts, and invalid coordinates. Label each as an error or a warning.",
+    question: "Why distinguish fatal errors from review warnings?",
+    options: ["Some inputs must stop the report, while unusual values may need investigation", "Warnings always mean the analysis should be deleted", "Errors only apply to dashboard colors"],
+    answer: 0
+  },
+  {
+    id: "excel-export", topic: "Excel", moduleId: "excel", title: "Export a polished, auditable workbook", duration: "20 MIN",
+    description: "Optional stretch: export a summary and issue log to a new workbook.",
+    lead: "Good automation protects the original and creates a predictable deliverable that another person can inspect.",
+    explanation: "Write outputs to a separate folder and include a summary, data-quality notes, and a timestamp or reporting period. Use an Excel writer for multiple sheets. For larger workbooks, format only what helps users; presentation should not obscure the source or calculation logic.",
+    code: "from pathlib import Path\nimport pandas as pd\n\n# Synthetic outputs make this complete example runnable by itself.\nby_team = pd.Series({\"North\": 120.0, \"South\": 80.0}, name=\"total_amount\")\nissues_frame = pd.DataFrame([\n    {\"field\": \"Amount\", \"problem\": \"one missing value excluded\"}\n])\noutput = Path(\"outputs/weekly_summary.xlsx\")\noutput.parent.mkdir(parents=True, exist_ok=True)\n\nwith pd.ExcelWriter(output, engine=\"openpyxl\") as writer:\n    by_team.to_frame().to_excel(writer, sheet_name=\"Summary\")\n    issues_frame.to_excel(writer, sheet_name=\"Data quality\", index=False)\nprint(f\"Created {output}\")",
+    codeNote: "Install pandas and openpyxl as in the README. The output values and issue are synthetic; the example creates a new file in `outputs/` and does not overwrite an input workbook.",
+    practice: "Export a summary and an issue sheet to a new file. Reopen it in Excel and compare key totals with your in-memory result.",
+    question: "Why should an automation write to a separate output path?",
+    options: ["To protect source data and make results reproducible", "To make validation unnecessary", "To guarantee there are no duplicate records"],
+    answer: 0
+  },
+  {
+    id: "dashboard-design", topic: "Dashboards", moduleId: "dashboards", title: "Design a chart around a real question", duration: "18 MIN",
+    description: "Select a measure, comparison, and chart that match a decision.",
+    lead: "A dashboard is a decision aid, not a collection of charts. Start by asking who needs to decide what, and what evidence would help.",
+    explanation: "Use bars for category comparison and lines for trends over time. Give every metric a definition, period, unit, and source. Avoid unexplained color, truncated axes that exaggerate change, and totals that hide missing data. Pair a visual with a short takeaway and a limitation.",
+    code: "import pandas as pd\nimport matplotlib.pyplot as plt\n\nclean = pd.DataFrame({\n    \"VisitDate\": [\"2025-01-12\", \"2025-01-24\", \"2025-03-05\"],\n    \"Amount\": [120.0, 80.0, 95.0],\n})\nclean[\"VisitDate_parsed\"] = pd.to_datetime(clean[\"VisitDate\"], errors=\"coerce\")\nmonthly = (\n    clean.assign(month=clean[\"VisitDate_parsed\"].dt.to_period(\"M\"))\n    .groupby(\"month\", as_index=False)[\"Amount\"].sum()\n)\n\nax = monthly.plot(x=\"month\", y=\"Amount\", legend=False)\nax.set(title=\"Synthetic monthly amount\", xlabel=\"Month\", ylabel=\"Amount (illustrative units)\")\nplt.tight_layout()\nplt.show()",
+    codeNote: "Install pandas and matplotlib as in the README. The values are synthetic. A line chart communicates an ordered time trend; this sample skips February, so check for missing periods before drawing a line that may imply continuity.",
+    practice: "Write a one-sentence decision question and define the numerator, denominator, period, and exclusions for its main KPI.",
+    question: "What should you define before publishing a KPI?",
+    options: ["Its meaning, calculation, time period, and exclusions", "Only the color and font", "How to hide unexpected records"],
+    answer: 0
+  },
+  {
+    id: "dashboard-streamlit", topic: "Dashboards", moduleId: "dashboards", title: "Turn analysis into a Streamlit app", duration: "25 MIN",
+    description: "Create a small interactive Python dashboard and run it locally.",
+    lead: "Streamlit lets you build an interactive interface in Python. Keep analysis logic separate from screen code as your app grows.",
+    explanation: "Start with a clear page title, a short explanation of the dataset, and a visible reporting period. Load validated data, show useful errors, then render a metric and chart. Run locally with `streamlit run app.py`. Use sample data until you understand your organization's rules for sensitive information.",
+    code: "import streamlit as st\nimport pandas as pd\n\nst.set_page_config(page_title=\"Service activity\", layout=\"wide\")\nst.title(\"Service activity monitor\")\nst.caption(\"Synthetic training data · illustrative amounts\")\nreport = pd.DataFrame({\n    \"Team\": [\"North\", \"South\", \"North\"],\n    \"Amount\": [120.0, 80.0, 45.0],\n})\nst.metric(\"Synthetic records\", f\"{len(report):,}\")\nst.bar_chart(report.groupby(\"Team\")[\"Amount\"].sum())",
+    codeNote: "Install Streamlit and pandas as in the README. Save this whole example as `app.py` and run it only on your computer with `py -m streamlit run app.py` (Windows) or `python3 -m streamlit run app.py` (macOS/Linux). It uses inline synthetic data and does not upload it.",
+    practice: "Create app.py with a public or synthetic CSV. Add a title, source note, one metric, and one chart; start it locally.",
+    question: "How do you run a Streamlit app file named app.py?",
+    options: ["python -m streamlit run app.py", "python app.py --excel", "pip install app.py"],
+    answer: 0
+  },
+  {
+    id: "dashboard-filters", topic: "Dashboards", moduleId: "dashboards", title: "Add filters without misleading users", duration: "20 MIN",
+    description: "Optional stretch: create controls and make empty or filtered states understandable.",
+    lead: "Filters can make a report more useful, but the interface must show what is currently included in each result.",
+    explanation: "A selectbox or date range can filter data before computing metrics. Derive all related charts from the same filtered table to avoid contradictory views. Show the active period and filter selection, and handle the case where filters return no rows.",
+    code: "import streamlit as st\nimport pandas as pd\n\nst.set_page_config(page_title=\"Filtered service summary\")\nst.title(\"Service visits by team\")\nreport = pd.DataFrame({\n    \"Team\": [\"North\", \"South\", \"North\"],\n    \"Amount\": [120.0, 80.0, 45.0],\n})\nteams = sorted(report[\"Team\"].dropna().unique())\nselected = st.multiselect(\"Teams\", teams, default=teams)\nfiltered = report[report[\"Team\"].isin(selected)]\n\nif filtered.empty:\n    st.info(\"No records match these filters.\")\nelse:\n    st.metric(\"Filtered synthetic records\", f\"{len(filtered):,}\")\n    st.bar_chart(filtered.groupby(\"Team\")[\"Amount\"].sum())",
+    codeNote: "This is a complete local Streamlit example with fictional inline data. Install and run it as shown in the README; test no selection, one selection, and all selections. Do not host or upload the practice app or its data.",
+    practice: "Add a date filter and team filter; verify KPI counts and chart totals update together and the no-results state is helpful.",
+    question: "Why show the active filters and reporting period?",
+    options: ["So people can interpret which records each result includes", "So they can skip data validation", "So the dashboard loads a different file each time"],
+    answer: 0
+  },
+  {
+    id: "dashboard-review", topic: "Dashboards", moduleId: "dashboards", title: "Review a dashboard like its next user", duration: "20 MIN",
+    description: "Optional stretch: review clarity, accessibility, loading states, and metric meaning.",
+    lead: "A dashboard is finished only when someone other than its author can use it and understand its limitations.",
+    explanation: "Review labels and units, keyboard access, color contrast, empty states, and whether each visual answers a stated question. A chart should not be the only place a critical value appears. Ask a reviewer to explain what they think a result means, then improve the interface where their interpretation differs from yours.",
+    code: "import streamlit as st\nimport pandas as pd\n\nst.set_page_config(page_title=\"Data quality review\")\nst.title(\"Synthetic service activity\")\nreport = pd.DataFrame({\"Team\": [\"North\", \"South\", \"North\"]})\nteam_counts = report[\"Team\"].value_counts().sort_index()\nst.subheader(\"Valid sample records by team\")\nst.caption(\"Count of fictional records; not a measure of population served.\")\nst.bar_chart(team_counts, y_label=\"Synthetic records\")\nst.caption(\"Source: inline synthetic training data\")",
+    codeNote: "Save the complete snippet as `app.py` and run it locally using the README setup. Exact accessibility options vary by library version; provide text context and test keyboard navigation.",
+    practice: "Ask a learner to use your app without guidance. Note one confusion point, improve it, and repeat the test.",
+    question: "What is a useful test with a first-time dashboard user?",
+    options: ["Ask them to explain a result and watch where they get confused", "Tell them the answer before they look", "Only check whether the chart has a title"],
+    answer: 0
+  },
+  {
+    id: "gis-crs", topic: "GIS", moduleId: "gis", title: "Choose coordinate systems for the task", duration: "22 MIN",
+    description: "Understand geographic versus projected CRS and verify units before measurement.",
+    lead: "Coordinates are meaningful only with their reference system. A correct CRS is essential for a trustworthy overlay, distance, or area calculation.",
+    explanation: "EPSG:4326 stores longitude and latitude in angular degrees; it is not a meter grid. For local distance or area work, reproject to an appropriate projected CRS for the study area. `set_crs` labels known coordinates; `to_crs` transforms them. Never use set_crs to disguise coordinates in the wrong system.",
+    code: "import geopandas as gpd\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# Fictional Jakarta-area coordinates; their source CRS is known.\ncoordinates = pd.DataFrame({\"lon\": [106.82, 106.90], \"lat\": [-6.18, -6.20]})\nsites = gpd.GeoDataFrame(\n    coordinates,\n    geometry=gpd.points_from_xy(coordinates[\"lon\"], coordinates[\"lat\"]),\n    crs=\"EPSG:4326\",\n)\nprint(\"Input CRS:\", sites.crs)\nif sites.crs is None:\n    raise ValueError(\"Source CRS is unknown; verify metadata before mapping or measuring\")\n\nlocal_sites = sites.to_crs(\"EPSG:32748\")  # Example only: verify zone and units for your area\nprint(\"Measurement CRS:\", local_sites.crs)\nprint(\"Measurement units:\", local_sites.crs.axis_info[0].unit_name)\nlocal_sites.plot()\nplt.show()",
+    codeNote: "Install GeoPandas as in the README. EPSG:32748 is a local UTM example suited to these fictional Jakarta-area coordinates; choose and verify a projected CRS with suitable units for any other study area. If loading unknown-source data, do not guess its CRS or measure it.",
+    practice: "Inspect a layer's CRS, find the appropriate local projected system for a sample area, reproject a copy, and record the units.",
+    question: "What is the difference between set_crs() and to_crs()?",
+    options: ["set_crs labels known coordinates; to_crs transforms them", "Both always transform geometry identically", "set_crs converts a workbook to a map"],
+    answer: 0
+  },
+  {
+    id: "gis-joins", topic: "GIS", moduleId: "gis", title: "Connect points to geographic areas", duration: "25 MIN",
+    description: "Optional stretch: use a spatial join to summarize events by boundary and review unmatched points.",
+    lead: "A spatial join answers questions such as which district contains each point. It relies on valid geometry, matching coordinate systems, and a clearly chosen boundary rule.",
+    explanation: "Reproject layers consistently before the join and check invalid or empty geometry. A point on a shared boundary may match more than one polygon depending on the predicate. Count unmatched and multiply matched records and decide how to communicate them.",
+    code: "import geopandas as gpd\nimport matplotlib.pyplot as plt\nfrom shapely.geometry import Point, box\n\n# Tiny fictional polygons and points share a known CRS.\nareas = gpd.GeoDataFrame(\n    {\"area_name\": [\"West\", \"East\"]},\n    geometry=[box(106.80, -6.25, 106.85, -6.15), box(106.85, -6.25, 106.90, -6.15)],\n    crs=\"EPSG:4326\",\n)\npoints = gpd.GeoDataFrame(\n    {\"site\": [\"A\", \"B\", \"C\"]},\n    geometry=[Point(106.82, -6.20), Point(106.88, -6.20), Point(106.95, -6.20)],\n    crs=\"EPSG:4326\",\n)\nif points.crs is None or areas.crs is None:\n    raise ValueError(\"A layer has unknown CRS; verify source metadata before joining\")\npoints = points.to_crs(areas.crs)\njoined = gpd.sjoin(points, areas[[\"area_name\", \"geometry\"]],\n                   how=\"left\", predicate=\"within\")\nprint(\"Unmatched points:\", int(joined[\"area_name\"].isna().sum()))\nby_area = joined.groupby(\"area_name\", dropna=False).size()\nprint(by_area)\nareas.boundary.plot(color=\"#527b65\")\npoints.plot(ax=plt.gca(), color=\"#c8794d\")\nplt.show()",
+    codeNote: "Install GeoPandas as in the README; the small tables are fictional. Both CRS values are explicitly known before reprojection. `within` excludes points exactly on a polygon boundary, so choose and document the boundary rule that fits the question.",
+    practice: "Join sample points to polygons, map the unmatched points, and test a point that lies exactly on a boundary.",
+    question: "Why inspect unmatched points after a spatial join?",
+    options: ["They may signal CRS, coverage, geometry, or boundary-rule issues", "They should always be silently deleted", "They prove all geometries are valid"],
+    answer: 0
+  },
+  {
+    id: "gis-distance", topic: "GIS", moduleId: "gis", title: "Measure proximity with appropriate units", duration: "24 MIN",
+    description: "Optional stretch: create a metric buffer and inspect straight-line proximity.",
+    lead: "Distance analysis can support planning, but only when its units and assumptions match the question.",
+    explanation: "A buffer radius is expressed in the layer's coordinate units. Buffering longitude/latitude degrees as if they were meters is wrong. Reproject to a suitable local system, define whether straight-line distance is a useful proxy, and explain that it is not the same as travel time or road distance.",
+    code: "import geopandas as gpd\nfrom pyproj import CRS\nfrom shapely.geometry import Point\n\nsites = gpd.GeoDataFrame(\n    {\"site\": [\"A\", \"B\", \"C\"]},\n    geometry=[Point(106.82, -6.20), Point(106.90, -6.18), Point(106.95, -6.22)],\n    crs=\"EPSG:4326\",\n)\ncenters = gpd.GeoDataFrame(\n    {\"center\": [\"Clinic 1\"]},\n    geometry=[Point(106.84, -6.20)],\n    crs=\"EPSG:4326\",\n)\nif sites.crs is None or centers.crs is None:\n    raise ValueError(\"A layer has unknown CRS; verify metadata before measuring\")\nlocal_crs = CRS.from_user_input(\"EPSG:32748\")  # Suitable only for this sample area\nif not local_crs.is_projected or local_crs.axis_info[0].unit_name != \"metre\":\n    raise ValueError(\"Choose a projected CRS whose coordinate units are metres\")\nprojected_sites = sites.to_crs(local_crs)\nprojected_centers = centers.to_crs(local_crs)\n\ncoverage = projected_centers.copy()\ncoverage[\"geometry\"] = coverage.geometry.buffer(500)  # 500 metres\ncovered = gpd.sjoin(projected_sites, coverage,\n                    how=\"left\", predicate=\"within\")\nprint(\"Fictional sites within 500 m straight-line buffer:\", int(covered[\"index_right\"].notna().sum()))",
+    codeNote: "Install GeoPandas as in the README; these are fictional Jakarta-area locations. The example stops if either CRS is unknown and checks that the selected projected CRS uses metres before buffering. This is planar straight-line proximity—not road distance, network travel time, or a claim about actual access.",
+    practice: "Choose a defensible sample buffer distance, compare coverage across two distances, and explain how the choice changes the result.",
+    question: "Why should you not buffer EPSG:4326 coordinates by 500 and call it 500 meters?",
+    options: ["Its coordinate units are degrees, not meters", "EPSG:4326 contains no coordinates", "Buffers only work for raster data"],
+    answer: 0
+  },
+  {
+    id: "gis-choropleth", topic: "GIS", moduleId: "gis", title: "Map rates, not misleading raw counts", duration: "22 MIN",
+    description: "Optional stretch: join area-level denominators and make an honest choropleth.",
+    lead: "Maps make geographic comparisons intuitive, but raw counts often reflect population size rather than a meaningful rate.",
+    explanation: "If the question is about service reach, divide visits by an appropriate population or eligible group, and show the denominator. Protect small counts where identification is possible. Use a thoughtful classification, legend, units, and source notes. Do not interpret a visual pattern as causation.",
+    code: "import geopandas as gpd\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom shapely.geometry import box\n\nareas = gpd.GeoDataFrame(\n    {\n        \"area_name\": [\"West\", \"East\"],\n        \"visits\": [12, 4],\n        \"eligible_population\": [300, 0],\n    },\n    geometry=[box(106.80, -6.25, 106.85, -6.15), box(106.85, -6.25, 106.90, -6.15)],\n    crs=\"EPSG:4326\",\n)\nareas[\"visits\"] = pd.to_numeric(areas[\"visits\"], errors=\"coerce\").fillna(0)\ndenominator = pd.to_numeric(areas[\"eligible_population\"], errors=\"coerce\")\n# Zero or missing denominators become NaN, not zero or infinity.\nareas[\"rate_per_1000\"] = areas[\"visits\"].div(denominator.where(denominator > 0)).mul(1000)\nprint(areas[[\"area_name\", \"visits\", \"eligible_population\", \"rate_per_1000\"]])\nareas.plot(column=\"rate_per_1000\", legend=True,\n           missing_kwds={\"color\": \"lightgrey\", \"label\": \"No valid denominator\"})\nplt.show()",
+    codeNote: "Install GeoPandas and pandas as in the README; values are synthetic. The rate is visits per 1,000 eligible people. Zero, negative, and missing denominators are left unmapped (NaN) and must be investigated—not reported as a zero rate. Apply small-count disclosure rules before sharing results.",
+    practice: "Compare a raw-count map with a rate map using sample data. Write down how the interpretation changes and what caveats remain.",
+    question: "Why might a rate be more useful than a raw count for comparing areas?",
+    options: ["It accounts for differences in the size of the population at risk", "It automatically removes all bias", "It guarantees the map proves causation"],
+    answer: 0
+  },
+  {
+    id: "gis-privacy", topic: "GIS", moduleId: "gis", title: "Protect location data and map uncertainty", duration: "18 MIN",
+    description: "Think through privacy, precision, aggregation, and the limits of spatial claims.",
+    lead: "Location data can reveal where people live, work, or receive services. Technical accuracy does not remove the responsibility to protect them.",
+    explanation: "Use only data you are authorized to handle. Minimize fields, avoid exposing precise sensitive points, aggregate where appropriate, and follow organizational review requirements. Note geocoding uncertainty, incomplete coverage, and the limits of straight-line distances. A map should not imply precision the source does not support.",
+    code: "# Example: summarize fictional records instead of publishing raw locations\nimport pandas as pd\n\njoined = pd.DataFrame({\n    \"area_name\": [\"West\", \"West\", \"East\"],\n    \"service_id\": [\"S1\", \"S2\", \"S3\"],\n})\npublic_summary = (\n    joined.groupby(\"area_name\", as_index=False)\n    .agg(visit_count=(\"service_id\", \"count\"))\n)\n# Apply disclosure rules before sharing any result.\nprint(public_summary.head())",
+    codeNote: "This example is self-contained and synthetic. Aggregation alone is not always sufficient to prevent re-identification; this course example is not a disclosure review, and the course does not publish or upload results.",
+    practice: "Write a short data-handling note for the capstone: source permission, fields excluded, aggregation rules, and known location uncertainty.",
+    question: "Does aggregating sensitive point data automatically guarantee privacy?",
+    options: ["No; disclosure risk still needs review under applicable policy", "Yes, aggregation always makes data anonymous", "Only if the map uses green colors"],
+    answer: 0
+  },
+  {
+    id: "pro-structure", topic: "Professional practice", moduleId: "professional", title: "Organize a project other people can navigate", duration: "22 MIN",
+    description: "Optional stretch: separate source code, tests, data, outputs, and configuration clearly.",
+    lead: "A professional project makes its purpose and workflow visible before a reader has to inspect every line.",
+    explanation: "Use small modules with clear responsibilities. Keep private input and generated outputs out of version control, while providing synthetic examples. A requirements file records dependencies. A README explains setup and normal usage. Avoid one enormous script that mixes data loading, analysis, and interface logic.",
+    code: "reporting-app/\n├── app.py\n├── src/reporting/\n│   ├── load.py\n│   ├── validate.py\n│   └── summarize.py\n├── tests/\n├── data/sample/\n├── outputs/          # generated; usually ignored by Git\n├── requirements.txt\n├── .gitignore\n└── README.md",
+    codeNote: "This is a starting shape, not a rule that every small script needs many files. Add structure when it makes responsibilities easier to understand.",
+    practice: "Create the capstone folders and move one pure transformation into a module that can be imported without starting the dashboard.",
+    question: "Why keep analysis functions separate from dashboard startup code?",
+    options: ["They can be tested and reused without rendering the interface", "It prevents Python from reading CSV files", "It hides the project's assumptions"],
+    answer: 0
+  },
+  {
+    id: "pro-tests", topic: "Professional practice", moduleId: "professional", title: "Test transformations with known examples", duration: "24 MIN",
+    description: "Write small tests for clean data, missing values, and boundary cases.",
+    lead: "Tests give you a repeatable way to notice when a change alters a calculation you rely on.",
+    explanation: "Begin with pure functions: give known input and assert the exact expected output. Include normal cases, empty input, missing values, and boundaries. Test data rules and calculations separately. A passing test does not prove every result is correct, but a failing test points to a change that needs attention.",
+    code: "# Save this self-contained demo as test_summarize.py\ndef total_amount(values):\n    return sum(values)\n\n\ndef test_total_amount():\n    assert total_amount([10, 15, 5]) == 30\n\n\ndef test_empty_amounts_total_zero():\n    assert total_amount([]) == 0",
+    codeNote: "Install pytest with `py -m pip install pytest` on Windows or `python3 -m pip install pytest` on macOS/Linux. From the same folder, run `py -m pytest test_summarize.py` or `python3 -m pytest test_summarize.py`.",
+    practice: "Add tests for your cleaning or summary function: a valid row, an empty table, and one invalid value. Confirm tests fail if you deliberately break the rule.",
+    question: "Why test edge cases as well as a typical example?",
+    options: ["Unexpected and boundary inputs often reveal assumptions that normal data hides", "Tests replace the need to review data", "Edge cases only affect map colors"],
+    answer: 0
+  },
+  {
+    id: "pro-git", topic: "Professional practice", moduleId: "professional", title: "Track changes with Git safely", duration: "22 MIN",
+    description: "Optional stretch: practice local Git milestones without adding private data or secrets.",
+    lead: "Version control lets you see how a project changed, compare alternatives, and return to a known working version.",
+    explanation: "Commit a small, coherent change with a descriptive message. Review `git status` and the diff before committing. Add private workbooks, credentials, virtual environments, and generated outputs to .gitignore. Removing a secret in a later commit does not erase it from history; treat exposure as an incident and rotate it.",
+    code: "# Shell commands: run only inside a separate, initialized practice repo.\ngit status\ngit diff\n# Add only paths that exist and that you reviewed.\ngit add app.py tests\ngit diff --cached\ngit commit -m \"Add validated visit summary\"",
+    codeNote: "This is a shell example, not Python; it assumes Git is installed and the practice repo already contains `app.py` and `tests/`. Never run it in the course folder or add work data or credentials. These commands make a local commit and do not publish it.",
+    practice: "Make two small commits, inspect their history, and verify a synthetic workbook and a sample secret file are ignored.",
+    question: "Why review git diff before making a commit?",
+    options: ["To see exactly what content will be recorded", "To permanently erase old versions", "To run the dashboard automatically"],
+    answer: 0
+  },
+  {
+    id: "pro-logging", topic: "Professional practice", moduleId: "professional", title: "Make runs observable with logs", duration: "20 MIN",
+    description: "Optional stretch: record useful progress and errors without leaking sensitive row data.",
+    lead: "When an automation runs unattended or fails for someone else, useful logs help you understand what happened.",
+    explanation: "Log milestones such as files discovered, rows read, validation counts, output path, and exceptions. Prefer Python's logging module over scattered print calls. Avoid logging personal data, secrets, or full sensitive records. Keep a failing run visibly failed; a log should explain failure, not disguise it.",
+    code: "import logging\n\n# Synthetic context for this standalone logging example.\nreport = [{\"team\": \"North\"}, {\"team\": \"South\"}]\nissues = [{\"field\": \"Amount\", \"problem\": \"one missing value\"}]\n\nlogging.basicConfig(level=logging.INFO,\n                    format=\"%(levelname)s %(message)s\")\nlogger = logging.getLogger(__name__)\n\nlogger.info(\"Loaded %d synthetic rows\", len(report))\nif issues:\n    logger.warning(\"Found %d validation issues\", len(issues))",
+    codeNote: "This example is standalone and uses fictional row/issue counts. For a larger app, configure handlers and log levels in one place; never include sensitive cell values in log messages.",
+    practice: "Add logs for start, input row count, validation totals, and successful output. Trigger a failure and verify its context is clear.",
+    question: "What information should a routine log avoid?",
+    options: ["Secrets and sensitive personal records", "The number of rows loaded", "A clear error category"],
+    answer: 0
+  },
+  {
+    id: "pro-release", topic: "Professional practice", moduleId: "professional", title: "Prepare a reproducible handoff", duration: "25 MIN",
+    description: "Document setup, sample data, limitations, and the exact steps to run the app.",
+    lead: "A project becomes useful to other people when they can set it up, understand the inputs, and reproduce its main result.",
+    explanation: "Pin or constrain dependencies thoughtfully, document the Python version and installation steps, and include only approved sample data. Explain expected columns, validation rules, outputs, privacy boundaries, known limitations, and troubleshooting. Before handing off, follow your own instructions in a clean environment.",
+    code: "# Example requirements.txt for the local practice capstone\npandas\nopenpyxl\nstreamlit\ngeopandas\npytest\n\n# After installing the requirements, run locally:\n# Windows: py -m streamlit run app.py\n# macOS/Linux: python3 -m streamlit run app.py",
+    codeNote: "This is a requirements.txt/README example, not Python code. Verify the libraries you actually use; do not add a hosting or upload step. The practice dashboard is for local synthetic data only.",
+    practice: "Ask another person to follow your README from a clean project copy. Fix every missing step they encounter.",
+    question: "What is the best way to check whether setup documentation is reproducible?",
+    options: ["Follow it in a clean environment without relying on memory", "Read it once and assume it is complete", "Only confirm that the file exists"],
+    answer: 0
+  }
+];
